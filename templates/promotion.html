@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
-        <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+        <title>Reward_{{ reward }}</title>
+        <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"> -->
     </head>
     <body>
         <main>
-            <h2>Home Page - Reward</h2>
+            <h2>This is Reward {{ reward }}</h2>
         </main>
-        {% for reward in rewards %}
-            <div>
-                <a href="/promotion?reward={{ reward }}">Reward {{ reward }}</a>
-            </div>
-        {% endfor %}
+
         <script type="module">
             // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
@@ -35,7 +31,25 @@
             // Initialize Firebase
             const app = initializeApp(firebaseConfig);
             const analytics = getAnalytics(app);
+
         </script>
+        <button id="btn-download">Redeem Reward</button>
+        <!-- <script>
+            var btnDownload = document.getElementById('btn-download');
+            btnDownload.addEventListener('click', function() {
+                // alert("hi");
+                firebase.analytics().logEvent('nnnnhihi');
+            }, false);
+        </script> -->
+        <script type="module">
+            import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+            var btnDownload = document.getElementById('btn-download');
+            btnDownload.addEventListener('click', function() {
+                const analytics = getAnalytics();
+                logEvent(analytics, 'goal_completion', { name: 'redeem'});
+            }, false);
+        </script>        
+
         <script type="text/javascript" src="{{url_for('static', filename='js/index.js', u='last_updated')}}"></script>
     </body>
 </html>

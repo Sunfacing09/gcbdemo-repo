@@ -7,14 +7,16 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def hello():
     html = "<h3>Hello, World! It worked Again</h3>"
-    return render_template('index.html')
+    rewards = []
+    for i in range(1, 11):
+        rewards.append(i)
+    return render_template('index.html', rewards=rewards)
 
 
-@app.route("/<promotion>", methods=['GET'])
-def promotion(promotion="Nothing"):
-    promotion = request.args.get('promotion', promotion)
-    html = "<h3>It's promotion page</h3>"
-    return promotion
+@app.route("/promotion", methods=['GET'])
+def promotion(reward="Nothing"):
+    reward = request.args.get('reward', reward)
+    return render_template('promotion.html', reward=reward)
 
 
 
